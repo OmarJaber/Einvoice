@@ -1,0 +1,115 @@
+{
+ "autoname": "field:item_name",
+ "creation": "2021-08-19 14:27:33.461034",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_name",
+  "item_group",
+  "item_type",
+  "tax_type",
+  "tax_rate",
+  "column_break_3",
+  "price",
+  "warehouse_quantity",
+  "img",
+  "description_section",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name ",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Price",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "description_section",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "img",
+   "fieldtype": "Attach Image",
+   "label": "Img"
+  },
+  {
+   "fieldname": "item_type",
+   "fieldtype": "Link",
+   "label": "Item Type",
+   "options": "Item Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "warehouse_quantity",
+   "fieldtype": "Data",
+   "label": "Warehouse Quantity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tax_type",
+   "fieldtype": "Link",
+   "label": "Tax Type",
+   "options": "Taxes",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "tax_type.rate",
+   "fieldname": "tax_rate",
+   "fieldtype": "Percent",
+   "label": "Tax Rate",
+   "read_only": 1
+  }
+ ],
+ "image_field": "img",
+ "modified": "2021-08-22 10:03:48.853642",
+ "modified_by": "Administrator",
+ "module": "Einvoice",
+ "name": "Item",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

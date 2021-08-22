@@ -1,0 +1,55 @@
+{
+ "creation": "2021-08-22 15:30:22.392348",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "taxes",
+  "total_amount",
+  "rate",
+  "tax_value"
+ ],
+ "fields": [
+  {
+   "fieldname": "taxes",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Taxes",
+   "options": "Taxes",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "taxes.rate",
+   "fieldname": "rate",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_value",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Tax Value",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-08-22 15:30:53.386573",
+ "modified_by": "Administrator",
+ "module": "Einvoice",
+ "name": "Sales Taxes and Charges",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

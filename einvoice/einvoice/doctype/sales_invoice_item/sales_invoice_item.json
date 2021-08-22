@@ -10,13 +10,8 @@
   "section_break_4",
   "price",
   "qty",
-  "column_break_7",
-  "tax_type",
-  "tax_rate",
   "section_break_10",
-  "total_without_tax",
-  "tax",
-  "total_amount"
+  "amount"
  ],
  "fields": [
   {
@@ -59,55 +54,20 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "column_break_7",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "item.tax_type",
-   "fieldname": "tax_type",
-   "fieldtype": "Link",
-   "label": "Tax Type",
-   "options": "Taxes",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fetch_from": "item.tax_rate",
-   "fieldname": "tax_rate",
-   "fieldtype": "Percent",
-   "label": "Tax Rate",
-   "read_only": 1
-  },
-  {
    "fieldname": "section_break_10",
    "fieldtype": "Section Break"
   },
   {
    "default": "0",
-   "fieldname": "total_without_tax",
-   "fieldtype": "Currency",
-   "label": "Total (Without Tax)",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "tax",
+   "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Tax",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "total_amount",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Total Amount",
+   "label": "Amount",
    "read_only": 1
   }
  ],
  "istable": 1,
- "modified": "2021-08-22 10:24:16.323283",
+ "modified": "2021-08-22 15:35:57.072298",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice Item",

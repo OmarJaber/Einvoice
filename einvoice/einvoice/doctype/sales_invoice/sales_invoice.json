@@ -12,6 +12,12 @@
   "posting_date",
   "items_details_section",
   "items",
+  "total",
+  "section_break_9",
+  "taxes",
+  "section_break_11",
+  "total_without_tax",
+  "total_tax_amount",
   "grand_total",
   "amended_from"
  ],
@@ -61,14 +67,6 @@
    "label": "Items Details"
   },
   {
-   "default": "0",
-   "fieldname": "grand_total",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Grand Total",
-   "read_only": 1
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -76,10 +74,53 @@
    "options": "Sales Invoice",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_without_tax",
+   "fieldtype": "Currency",
+   "label": "Total (Without Tax)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_tax_amount",
+   "fieldtype": "Currency",
+   "label": "Total Tax",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "taxes",
+   "fieldtype": "Table",
+   "label": "Sales Taxes and Charges",
+   "options": "Sales Taxes and Charges"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-08-19 16:48:28.624583",
+ "modified": "2021-08-22 15:41:27.352935",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",

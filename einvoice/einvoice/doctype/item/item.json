@@ -8,8 +8,6 @@
   "item_name",
   "item_group",
   "item_type",
-  "tax_type",
-  "tax_rate",
   "column_break_3",
   "price",
   "warehouse_quantity",
@@ -73,24 +71,10 @@
    "fieldtype": "Data",
    "label": "Warehouse Quantity",
    "reqd": 1
-  },
-  {
-   "fieldname": "tax_type",
-   "fieldtype": "Link",
-   "label": "Tax Type",
-   "options": "Taxes",
-   "reqd": 1
-  },
-  {
-   "fetch_from": "tax_type.rate",
-   "fieldname": "tax_rate",
-   "fieldtype": "Percent",
-   "label": "Tax Rate",
-   "read_only": 1
   }
  ],
  "image_field": "img",
- "modified": "2021-08-22 10:03:48.853642",
+ "modified": "2021-08-22 15:26:06.355003",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Item",

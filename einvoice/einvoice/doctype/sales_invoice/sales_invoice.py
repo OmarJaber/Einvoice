@@ -12,10 +12,18 @@ class SalesInvoice(Document):
 		total = 0
 		total_tax = 0
 		for item in self.items:
-			item.total_without_tax = flt(item.qty)*flt(item.price)
-			item.tax = item.total_without_tax*(item.tax_rate/100)
-			item.total_amount = item.total_without_tax+item.tax
-			total = total+item.total_amount
+			item.amount = flt(item.qty)*flt(item.price)
+			total = total+item.amount
 
 
-		self.grand_total = total
+		for taxes in self.taxes:
+			taxes.total_amount = total
+			taxes.tax_value = total*(taxes.rate/100)
+			total_tax = total_tax+(taxes.tax_value)
+		
+		
+		self.total = total
+		self.total_without_tax = total
+		self.total_tax_amount = total_tax
+		self.grand_total = self.total_without_tax+self.total_tax_amount
+

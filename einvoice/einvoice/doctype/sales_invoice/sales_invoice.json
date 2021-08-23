@@ -19,6 +19,8 @@
   "total_without_tax",
   "total_tax_amount",
   "grand_total",
+  "column_break_15",
+  "payment_type",
   "amended_from"
  ],
  "fields": [
@@ -26,8 +28,7 @@
    "fieldname": "customer",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Customer",
-   "reqd": 1
+   "label": "Customer"
   },
   {
    "fieldname": "column_break_2",
@@ -45,15 +46,13 @@
    "fetch_from": "customer.email",
    "fieldname": "email",
    "fieldtype": "Data",
-   "label": "Email",
-   "reqd": 1
+   "label": "Email"
   },
   {
    "fetch_from": "customer.mobile",
    "fieldname": "mobile",
    "fieldtype": "Data",
-   "label": "Mobile",
-   "reqd": 1
+   "label": "Mobile"
   },
   {
    "fieldname": "items",
@@ -117,10 +116,20 @@
    "fieldtype": "Table",
    "label": "Sales Taxes and Charges",
    "options": "Sales Taxes and Charges"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payment_type",
+   "fieldtype": "Select",
+   "label": "Payment Type",
+   "options": "Cash\nCredit Card"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-08-22 15:41:27.352935",
+ "modified": "2021-08-23 12:50:00.435196",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",

@@ -7,9 +7,8 @@
  "field_order": [
   "item_name",
   "item_group",
-  "item_type",
-  "column_break_3",
   "price",
+  "column_break_3",
   "warehouse_quantity",
   "img",
   "description_section",
@@ -60,13 +59,6 @@
    "label": "Img"
   },
   {
-   "fieldname": "item_type",
-   "fieldtype": "Link",
-   "label": "Item Type",
-   "options": "Item Type",
-   "reqd": 1
-  },
-  {
    "fieldname": "warehouse_quantity",
    "fieldtype": "Data",
    "label": "Warehouse Quantity",
@@ -74,7 +66,7 @@
   }
  ],
  "image_field": "img",
- "modified": "2021-08-22 15:26:06.355003",
+ "modified": "2021-08-23 12:37:49.613710",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Item",

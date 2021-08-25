@@ -9,6 +9,8 @@
   "mobile",
   "email",
   "column_break_2",
+  "company_name",
+  "tax_id",
   "posting_date",
   "items_details_section",
   "items",
@@ -126,10 +128,20 @@
    "fieldtype": "Select",
    "label": "Payment Type",
    "options": "Cash\nCredit Card"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "label": "Tax ID"
   }
  ],
  "is_submittable": 1,
- "modified": "2021-08-23 12:50:00.435196",
+ "modified": "2021-08-25 11:21:49.335450",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",

@@ -27,3 +27,9 @@ class SalesInvoice(Document):
 		self.total_tax_amount = total_tax
 		self.grand_total = self.total_without_tax+self.total_tax_amount
 
+
+	def get_company_info(self):
+		doc = frappe.get_single("Company Info")
+		return doc.company_name, doc.tax_id
+
+

@@ -1,7 +1,23 @@
 // Copyright (c) 2021, Estores and contributors
 // For license information, please see license.txt
 
+
 frappe.ui.form.on('Sales Invoice', {
+	onload: function(frm) {
+
+		frappe.call({
+		    method: 'get_company_info',
+		    doc: frm.doc,
+		    callback: function(r) {
+		        if (r.message) {
+		            console.log(r.message)
+		            cur_frm.set_value("company_name", r.message[0]);
+		            cur_frm.set_value("tax_id", r.message[1]);
+		        }
+		    }
+		});
+
+	},
 	total: function(frm) {
 		cur_frm.set_value("taxes", );
 	}

@@ -132,16 +132,18 @@
   {
    "fieldname": "company_name",
    "fieldtype": "Data",
-   "label": "Company Name"
+   "label": "Company Name",
+   "read_only": 1
   },
   {
    "fieldname": "tax_id",
    "fieldtype": "Data",
-   "label": "Tax ID"
+   "label": "Tax ID",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2021-08-25 11:21:49.335450",
+ "modified": "2021-08-26 10:15:34.200085",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",

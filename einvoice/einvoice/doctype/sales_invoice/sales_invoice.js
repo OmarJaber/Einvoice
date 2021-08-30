@@ -10,7 +10,6 @@ frappe.ui.form.on('Sales Invoice', {
 		    doc: frm.doc,
 		    callback: function(r) {
 		        if (r.message) {
-		            console.log(r.message)
 		            cur_frm.set_value("company_name", r.message[0]);
 		            cur_frm.set_value("tax_id", r.message[1]);
 		        }

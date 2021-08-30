@@ -1,0 +1,100 @@
+{
+ "autoname": "format:DSINV-{YYYY}-{#####}",
+ "creation": "2021-08-29 15:44:50.725389",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company_name",
+  "tax_id",
+  "invoices_details_section",
+  "invoices",
+  "section_break_9",
+  "taxes",
+  "section_break_11",
+  "total_without_tax",
+  "total_tax_amount",
+  "grand_total"
+ ],
+ "fields": [
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "label": "Tax ID"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "taxes",
+   "fieldtype": "Table",
+   "label": "Sales Taxes and Charges",
+   "options": "Download Sales Taxes and Charges"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_without_tax",
+   "fieldtype": "Currency",
+   "label": "Total (Without Tax)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_tax_amount",
+   "fieldtype": "Currency",
+   "label": "Total Tax",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoices_details_section",
+   "fieldtype": "Section Break",
+   "label": "Invoices Details"
+  },
+  {
+   "fieldname": "invoices",
+   "fieldtype": "Table",
+   "options": "Download Sales Invoice Item"
+  }
+ ],
+ "in_create": 1,
+ "modified": "2021-08-30 10:33:01.278618",
+ "modified_by": "Administrator",
+ "module": "Einvoice",
+ "name": "Download Sales Invoice",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "read_only": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

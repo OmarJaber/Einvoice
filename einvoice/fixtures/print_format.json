@@ -1,0 +1,29 @@
+[
+ {
+  "absolute_value": 0,
+  "align_labels_right": 0,
+  "css": null,
+  "custom_format": 0,
+  "default_print_language": null,
+  "disabled": 0,
+  "doc_type": "Download Sales Invoice",
+  "docstatus": 0,
+  "doctype": "Print Format",
+  "font": "Default",
+  "format_data": "[{\"fieldname\": \"print_heading_template\", \"fieldtype\": \"Custom HTML\", \"options\": \"<div class=\\\"print-heading\\\">\\t\\t\\t\\t<h2>Sales Invoice<br><small>{{ doc.name }}</small>\\t\\t\\t\\t</h2></div>\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"company_name\", \"print_hide\": 0, \"label\": \"Company Name\"}, {\"fieldname\": \"tax_id\", \"print_hide\": 0, \"label\": \"Tax ID\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"invoices\", \"print_hide\": 0, \"visible_columns\": [{\"fieldname\": \"sales_invoice\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"posting_date\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"total_amount\", \"print_width\": \"\", \"print_hide\": 0}]}, {\"fieldname\": \"taxes\", \"print_hide\": 0, \"label\": \"Sales Taxes and Charges\", \"visible_columns\": [{\"fieldname\": \"taxes\", \"print_width\": \"\", \"print_hide\": 0}, {\"fieldname\": \"tax_value\", \"print_width\": \"\", \"print_hide\": 0}]}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"total_without_tax\", \"print_hide\": 0, \"label\": \"Total (Without Tax)\"}, {\"fieldname\": \"total_tax_amount\", \"print_hide\": 0, \"label\": \"Total Tax\"}, {\"fieldname\": \"grand_total\", \"print_hide\": 0, \"label\": \"Grand Total\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"payment_type\", \"print_hide\": 0, \"label\": \"Payment Type\"}]",
+  "html": null,
+  "line_breaks": 0,
+  "modified": "2021-08-30 09:54:39.862256",
+  "module": "Einvoice",
+  "name": "New Standard",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "print_format_builder": 1,
+  "print_format_type": "Jinja",
+  "raw_commands": null,
+  "raw_printing": 0,
+  "show_section_headings": 0,
+  "standard": "No"
+ }
+]

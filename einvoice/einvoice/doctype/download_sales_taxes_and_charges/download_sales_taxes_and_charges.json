@@ -1,0 +1,37 @@
+{
+ "creation": "2021-08-30 09:40:36.397505",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "taxes",
+  "tax_value"
+ ],
+ "fields": [
+  {
+   "fieldname": "taxes",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Taxes",
+   "options": "Taxes"
+  },
+  {
+   "fieldname": "tax_value",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Tax Value",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-08-30 09:41:13.051479",
+ "modified_by": "Administrator",
+ "module": "Einvoice",
+ "name": "Download Sales Taxes and Charges",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

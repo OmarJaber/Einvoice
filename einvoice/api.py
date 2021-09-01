@@ -204,12 +204,12 @@ def send_sales_invoice_via_email(sales_invoice):
     else:
         doc = frappe.get_doc("Sales Invoice", sales_invoice)
 
-        msg = frappe.render_template('einvoice/templates/emails/invoice.html', context={"sales_invoice": doc})
+        msg = frappe.render_template('einvoice/templates/emails/invoice_ar.html', context={"sales_invoice": doc})
 
         sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
         recipient = doc.email
 
-        attachments = [frappe.attach_print("Sales Invoice", doc.name, print_format='Standard')]
+        attachments = [frappe.attach_print("Sales Invoice", doc.name, print_format='New Standard SI AR')]
 
         frappe.sendmail(
             sender=sender,

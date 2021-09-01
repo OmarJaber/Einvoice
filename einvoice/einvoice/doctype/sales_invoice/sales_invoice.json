@@ -8,6 +8,7 @@
   "customer",
   "mobile",
   "email",
+  "address",
   "column_break_2",
   "company_name",
   "tax_id",
@@ -59,6 +60,7 @@
   {
    "fieldname": "items",
    "fieldtype": "Table",
+   "label": "Sales Invoice Items",
    "options": "Sales Invoice Item",
    "reqd": 1
   },
@@ -127,7 +129,7 @@
    "fieldname": "payment_type",
    "fieldtype": "Select",
    "label": "Payment Type",
-   "options": "Cash\nCredit Card"
+   "options": "\u0646\u0642\u062f\u064a\n\u0628\u0637\u0627\u0642\u0629 \u0627\u0626\u062a\u0645\u0627\u0646"
   },
   {
    "fieldname": "company_name",
@@ -140,10 +142,14 @@
    "fieldtype": "Data",
    "label": "Tax ID",
    "read_only": 1
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
   }
  ],
- "is_submittable": 1,
- "modified": "2021-08-26 16:11:13.233973",
+ "modified": "2021-09-01 11:48:13.754175",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",
@@ -159,7 +165,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   }
  ],

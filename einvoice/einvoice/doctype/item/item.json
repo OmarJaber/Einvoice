@@ -10,6 +10,8 @@
   "price",
   "column_break_3",
   "warehouse_quantity",
+  "tax",
+  "rate",
   "img",
   "description_section",
   "description"
@@ -51,7 +53,8 @@
   {
    "fieldname": "description",
    "fieldtype": "Text Editor",
-   "label": "Description"
+   "label": "Description",
+   "reqd": 1
   },
   {
    "fieldname": "img",
@@ -60,13 +63,27 @@
   },
   {
    "fieldname": "warehouse_quantity",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Warehouse Quantity",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "tax.rate",
+   "fieldname": "rate",
+   "fieldtype": "Percent",
+   "label": "Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax",
+   "fieldtype": "Link",
+   "label": "Tax",
+   "options": "Taxes",
    "reqd": 1
   }
  ],
  "image_field": "img",
- "modified": "2021-08-26 16:11:19.126358",
+ "modified": "2021-09-12 11:59:49.818542",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Item",

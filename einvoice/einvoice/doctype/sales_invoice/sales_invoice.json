@@ -15,12 +15,7 @@
   "posting_date",
   "items_details_section",
   "items",
-  "total",
-  "section_break_9",
-  "taxes",
   "section_break_11",
-  "total_without_tax",
-  "total_tax_amount",
   "grand_total",
   "column_break_15",
   "payment_type",
@@ -79,34 +74,8 @@
    "read_only": 1
   },
   {
-   "default": "0",
-   "fieldname": "total",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Total",
-   "read_only": 1
-  },
-  {
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "section_break_11",
    "fieldtype": "Section Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "total_without_tax",
-   "fieldtype": "Currency",
-   "label": "Total (Without Tax)",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "total_tax_amount",
-   "fieldtype": "Currency",
-   "label": "Total Tax",
-   "read_only": 1
   },
   {
    "default": "0",
@@ -114,12 +83,6 @@
    "fieldtype": "Currency",
    "label": "Grand Total",
    "read_only": 1
-  },
-  {
-   "fieldname": "taxes",
-   "fieldtype": "Table",
-   "label": "Sales Taxes and Charges",
-   "options": "Sales Taxes and Charges"
   },
   {
    "fieldname": "column_break_15",
@@ -149,7 +112,7 @@
    "label": "Address"
   }
  ],
- "modified": "2021-09-01 11:48:13.754175",
+ "modified": "2021-09-12 11:39:32.349189",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",

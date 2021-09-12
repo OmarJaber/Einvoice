@@ -28,6 +28,14 @@ from frappe.utils.print_format import download_pdf
 import requests
 
 
+def edit_rate():
+    items = frappe.db.sql_list("select name from `tabItem`")
+    for item in items:
+        doc = frappe.get_doc("Item", item)
+        doc.tax='15%'
+        doc.description=item
+        doc.save(ignore_permissions=True)
+        print(item)
 
 
 @frappe.whitelist()
@@ -37,13 +45,13 @@ def item_search(search_key):
         "data": []
     }
 
-    items = frappe.db.sql("select item_name, item_group, price, warehouse_quantity, tax, rate, img, description from `tabItem` where warehouse_quantity!=0 and name like '%{0}%'or description like '%{0}%'".format(search_key))
+    items = frappe.db.sql("select item_name, item_group, item_type, price, warehouse_quantity, img, description from `tabItem` where warehouse_quantity!=0 and name like '%{0}%'or description like '%{0}%'".format(search_key))
 
     if len(items)==0:
         return "There are no product matches with the search key {0}".format(search_key)
     else: 
         for item in items:
-            data["data"].append({'item_name': item[0], 'item_group': item[1], 'price': item[2], 'warehouse_quantity': item[3], 'tax': item[4], 'rate': item[5], 'img': item[6], 'description': item[7]})
+            data["data"].append({'item_name': item[0], 'item_group': item[1], 'item_type': item[2], 'price': item[3], 'warehouse_quantity': item[4], 'img': item[5], 'description': item[6]})
 
         return data
 
@@ -82,10 +90,18 @@ def download_all_filtered_sales_invoice(from_date, to_date):
     
     invoices_sql = tuple(invoices_sql)
 
+    taxes = frappe.db.sql("select taxes, sum(tax_value) from `tabSales Taxes and Charges` where parent in {0} group by taxes".format(invoices_sql))
+    for taxe in taxes:
+        doc.append('taxes',{
+            "taxes": taxe[0],
+            "tax_value": taxe[1]
+        })
         
-    total = frappe.db.sql("select sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
 
-    doc.grand_total = total[0][0]
+    doc.total_without_tax = total[0][0]
+    doc.total_tax_amount = total[0][1]
+    doc.grand_total = total[0][2]
 
     doc.save(ignore_permissions=True)
 
@@ -107,20 +123,27 @@ def get_specific_filtered_sales_invoice(from_date, to_date, current_page_number,
     invoices_sql = []
     data = {
       "invoices": [],
+      "taxes": [],
       "number_of_pages": 0,
       "current_page_number": 1,
       "page_entries": 10,
+      "total_without_tax": 0,
+      "total_tax_amount": 0,
       "grand_total": 0
     }
 
     invoices = frappe.db.sql_list("select name from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
     for invoice in invoices:
         doc=frappe.get_doc("Sales Invoice", invoice)
-        data["invoices"].append({'name': invoice, 'posting_date': doc.posting_date, 'grand_total': doc.grand_total})
+        data["invoices"].append({'name': invoice, 'posting_date': doc.posting_date, 'grand_total': doc.grand_total, 'total_tax_amount': doc.total_tax_amount})
         invoices_sql.append(invoice)
 
     invoices_sql = tuple(invoices_sql)
     
+    taxes = frappe.db.sql("select taxes, sum(tax_value) from `tabSales Taxes and Charges` where parent in {0} group by taxes".format(invoices_sql))
+    for taxe in taxes:
+        data["taxes"].append({'Tax': taxe[0], 'tax_value': taxe[1]})
+
 
     number_of_pages = math.ceil(len(data["invoices"])/flt(page_entries))
 
@@ -132,9 +155,11 @@ def get_specific_filtered_sales_invoice(from_date, to_date, current_page_number,
     data.update({"page_entries": page_entries})
 
 
-    total = frappe.db.sql("select sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
 
-    data.update({"grand_total": total[0][0]})
+    data.update({"total_without_tax": total[0][0]})
+    data.update({"total_tax_amount": total[0][1]})
+    data.update({"grand_total": total[0][2]})
 
     
     new_array = list(chunks(data["invoices"], int(page_entries)))[current_page_number-1]
@@ -172,21 +197,30 @@ def get_all_filtered_sales_invoice(from_date, to_date):
     invoices_sql = []
     data = {
       "invoices": [],
+      "taxes": [],
+      "total_without_tax": 0,
+      "total_tax_amount": 0,
       "grand_total": 0
     }
 
     invoices = frappe.db.sql_list("select name from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
     for invoice in invoices:
         doc=frappe.get_doc("Sales Invoice", invoice)
-        data["invoices"].append({'name': invoice, 'posting_date': doc.posting_date, 'grand_total': doc.grand_total})
+        data["invoices"].append({'name': invoice, 'posting_date': doc.posting_date, 'grand_total': doc.grand_total, 'total_tax_amount': doc.total_tax_amount})
         invoices_sql.append(invoice)
 
     invoices_sql = tuple(invoices_sql)
+    
+    taxes = frappe.db.sql("select taxes, sum(tax_value) from `tabSales Taxes and Charges` where parent in {0} group by taxes".format(invoices_sql))
+    for taxe in taxes:
+        data["taxes"].append({'Tax': taxe[0], 'tax_value': taxe[1]})
 
         
-    total = frappe.db.sql("select sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
 
-    data.update({"grand_total": total[0][0]})
+    data.update({"total_without_tax": total[0][0]})
+    data.update({"total_tax_amount": total[0][1]})
+    data.update({"grand_total": total[0][2]})
 
     return data
 

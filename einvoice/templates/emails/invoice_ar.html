@@ -356,6 +356,9 @@ body{
                                                             <td width="115" align="center" valign="top" class="two-left" style="font-family:'Open Sans', sans-serif, Verdana; font-size:15px; color:#333; line-height:22px; font-weight:bold;" mc:edit="tm5-12">
                                                                 <multiline>الكمية</multiline>
                                                             </td>
+                                                            <td width="115" align="center" valign="top" class="two-left" style="font-family:'Open Sans', sans-serif, Verdana; font-size:15px; color:#333; line-height:22px; font-weight:bold;" mc:edit="tm5-12">
+                                                                <multiline>الضريبة</multiline>
+                                                            </td>
                                                             <td width="115" align="center" valign="top" class="two-left" style="font-family:'Open Sans', sans-serif, Verdana; font-size:15px; color:#333; line-height:22px; font-weight:bold;" mc:edit="tm5-13">
                                                                 <multiline>المجموع</multiline>
                                                             </td>
@@ -400,6 +403,9 @@ body{
                                                             <td width="115" align="center" valign="bottom" style="font-family:'Open Sans', sans-serif, Verdana; font-size:13px; color:#71746f; line-height:22px; font-weight:normal;vertical-align: middle;" class="two-left" mc:edit="tm5-16">
                                                                 <multiline>{{ row.qty }}</multiline>
                                                             </td>
+                                                            <td width="115" align="center" valign="bottom" style="font-family:'Open Sans', sans-serif, Verdana; font-size:13px; color:#71746f; line-height:22px; font-weight:normal;vertical-align: middle;" class="two-left" mc:edit="tm5-16">
+                                                                <multiline>{{ row.tax }}</multiline>
+                                                            </td>
                                                             <td width="115" align="center" valign="bottom" style="font-family:'Open Sans', sans-serif, Verdana; font-size:13px; color:#71746f; line-height:22px; font-weight:normal;vertical-align: middle;" class="two-left" mc:edit="tm5-17">
                                                                 <multiline>{{ row.amount }}</multiline>
                                                             </td>
@@ -419,91 +425,7 @@ body{
                 </table>
                 {%- endfor -%}
                 
-                <br>
-
-
-
-                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="menu-icon">
-                    <tr>
-                        <td align="center" valign="top">
-                            <table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
-                                <tr>
-                                    <td align="center" valign="top" style="background:#FFF;">
-                                        <table width="500" border="0" cellspacing="0" cellpadding="0" class="two-left-inner">
-                                            <tr>
-                                                <td height="65" align="center" valign="top" style="font-size:65px; line-height:65px;">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">
-                                                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="direction: rtl;">
-                                                        <tr>
-                                                            <td width="155" align="center" valign="top" class="two-left" style="font-family:'Open Sans', sans-serif, Verdana; font-size:15px; color:#333; line-height:22px; font-weight:bold;" mc:edit="tm5-10">
-                                                                <multiline>مجموع السعر</multiline>
-                                                            </td>
-                                                            <td width="115" align="center" valign="top" class="two-left" style="font-family:'Open Sans', sans-serif, Verdana; font-size:15px; color:#333; line-height:22px; font-weight:bold;" mc:edit="tm5-11">
-                                                                <multiline>نسبة الضريبة</multiline>
-                                                            </td>
-                                                            <td width="115" align="center" valign="top" class="two-left" style="font-family:'Open Sans', sans-serif, Verdana; font-size:15px; color:#333; line-height:22px; font-weight:bold;" mc:edit="tm5-12">
-                                                                <multiline>قيمة الضريبة</multiline>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td height="25" align="center" valign="top" style="font-size:25px; line-height:25px; border-bottom:#CCC solid 1px;">&nbsp;</td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-
-                {%- for row in sales_invoice.taxes -%}
-                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td align="center" valign="top">
-                            <table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
-                                <tr>
-                                    <td align="center" valign="top" style="background:#FFF;">
-                                        <table width="500" border="0" cellspacing="0" cellpadding="0" class="two-left-inner">
-                                            <tr>
-                                                <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px;">
-                                                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="direction: rtl;">
-                                                        <tr>
-                                                            <td colspan="4" align="center" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:13px; color:#333; line-height:30px; font-weight:normal;">&nbsp;</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td width="155" align="center" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:12px; color:#71746f; line-height:22px; font-weight:normal;" class="two-left" mc:edit="tm5-14">
-                                                                <multiline><b style="font-size:15px;">{{ row.total_amount }}</b> <br/>
-                                                                  
-                                                                </multiline>
-                                                            </td>
-                                                            <td width="115" align="center" valign="bottom" style="font-family:'Open Sans', sans-serif, Verdana; font-size:13px; color:#71746f; line-height:22px; font-weight:normal;vertical-align: middle;" class="two-left" mc:edit="tm5-15">
-                                                                <multiline>{{ row.rate }}</multiline>
-                                                            </td>
-                                                            <td width="115" align="center" valign="bottom" style="font-family:'Open Sans', sans-serif, Verdana; font-size:13px; color:#71746f; line-height:22px; font-weight:normal;vertical-align: middle;" class="two-left" mc:edit="tm5-16">
-                                                                <multiline>{{ row.tax_value }}</multiline>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td height="35" align="center" valign="top" style="font-size:35px; line-height:35px; border-bottom:#CCC solid 1px;">&nbsp;</td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                {%- endfor -%}
-
-
+                
                 <table width="100%" border="0" align="right" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="right" valign="top">
@@ -517,48 +439,6 @@ body{
                                                         <tr>
                                                             <td height="40" colspan="2" align="right" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:13px; color:#333; line-height:30px; font-weight:normal;">&nbsp;</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td align="right" valign="top">
-                                                                <table border="0" align="right" cellpadding="0" cellspacing="0" class="full">
-                                                                    <tr>
-                                                                        <td align="right" valign="top">
-                                                                            <table width="500" border="0" align="right" cellpadding="0" cellspacing="0" style="direction: rtl;">
-                                                                                <tr>
-                                                                                    <td width="165" align="right" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:22px; color:#333; line-height:22px; font-weight:bold;" class="two-right" mc:edit="tm5-28">
-                                                                                        <multiline>إجمالي السعر(بدون ضريبة)</multiline>
-                                                                                    </td>
-                                                                                    <td width="115" align="right" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:20px; color:#333; line-height:22px; font-weight:bold;" class="two-right" mc:edit="tm5-29">
-                                                                                        <multiline>{{ sales_invoice.total_without_tax }}</multiline>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <br>
-                                                        <tr>
-                                                            <td align="right" valign="top">
-                                                                <table border="0" align="right" cellpadding="0" cellspacing="0" class="full">
-                                                                    <tr>
-                                                                        <td align="right" valign="top">
-                                                                            <table width="500" border="0" align="right" cellpadding="0" cellspacing="0" style="direction: rtl;">
-                                                                                <tr>
-                                                                                    <td width="165" align="right" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:22px; color:#333; line-height:22px; font-weight:bold;" class="two-right" mc:edit="tm5-28">
-                                                                                        <multiline>مجموع الضريبة</multiline>
-                                                                                    </td>
-                                                                                    <td width="115" align="right" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:20px; color:#333; line-height:22px; font-weight:bold;" class="two-right" mc:edit="tm5-29">
-                                                                                        <multiline>{{ sales_invoice.total_tax_amount }}</multiline>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                        <br>
                                                         <tr>
                                                         <td align="right" valign="top">
                                                                 <table border="0" align="right" cellpadding="0" cellspacing="0" class="full">

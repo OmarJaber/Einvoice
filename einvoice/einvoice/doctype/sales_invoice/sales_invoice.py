@@ -27,15 +27,20 @@ class SalesInvoice(Document):
     def validate(self):
 
         total = 0
+        tax = 0
         for item in self.items:
             item.total = flt(item.qty)*flt(item.price)
             item.tax_value = (flt(item.rate)/100.0)*flt(item.total)
             item.amount = flt(item.total)+flt(item.tax_value)
 
-            total = total+item.amount
+            total = total+item.total
+            tax = tax+item.tax_value
         
         
-        self.grand_total = total
+        self.total = total
+        self.total_without_tax = total
+        self.total_tax_amount = tax
+        self.grand_total = self.total_without_tax+self.total_tax_amount
 
 
     def get_company_info(self):

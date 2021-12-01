@@ -15,7 +15,10 @@
   "posting_date",
   "items_details_section",
   "items",
+  "total",
   "section_break_11",
+  "total_without_tax",
+  "total_tax_amount",
   "grand_total",
   "column_break_15",
   "payment_type",
@@ -110,9 +113,30 @@
    "fieldname": "address",
    "fieldtype": "Data",
    "label": "Address"
+  },
+  {
+   "default": "0",
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_without_tax",
+   "fieldtype": "Currency",
+   "label": "Total (Without Tax)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_tax_amount",
+   "fieldtype": "Currency",
+   "label": "Total Tax",
+   "read_only": 1
   }
  ],
- "modified": "2021-09-12 11:39:32.349189",
+ "modified": "2021-09-12 14:06:44.244320",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",

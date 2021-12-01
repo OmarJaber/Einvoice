@@ -34,10 +34,16 @@ frappe.ui.form.on('Sales Invoice Item', {
 			frappe.model.set_value(cdt, cdn, "amount", d.total+d.tax_value);
 
 			var total = 0;
+			var tax = 0;
 	        $.each(frm.doc.items || [], function (i, d) {
-	            total += d.amount;
+	            total += d.total;
+	            tax += d.tax_value;
 	        });
-	        cur_frm.set_value("grand_total", total);
+	        cur_frm.set_value("total", total);
+	        cur_frm.set_value("total_without_tax", total);
+	        cur_frm.set_value("total_tax_amount", tax);
+	        
+	        cur_frm.set_value("grand_total", cur_frm.doc.total_without_tax+cur_frm.doc.total_tax_amount);
 
 		}
 	},
@@ -49,10 +55,16 @@ frappe.ui.form.on('Sales Invoice Item', {
 			frappe.model.set_value(cdt, cdn, "amount", d.total+d.tax_value);
 
 			var total = 0;
+			var tax = 0;
 	        $.each(frm.doc.items || [], function (i, d) {
-	            total += d.amount;
+	            total += d.total;
+	            tax += d.tax_value;
 	        });
-	        cur_frm.set_value("grand_total", total);
+	        cur_frm.set_value("total", total);
+	        cur_frm.set_value("total_without_tax", total);
+	        cur_frm.set_value("total_tax_amount", tax);
+	        
+	        cur_frm.set_value("grand_total", cur_frm.doc.total_without_tax+cur_frm.doc.total_tax_amount);
 
 		}
 	}

@@ -127,6 +127,9 @@ app_license = "MIT"
 # 	"Task": "einvoice.task.get_dashboard_data"
 # }
 
-fixtures = [{"doctype":"Print Format", "filters": [["module", "=", "Einvoice"]]}]
+fixtures = [
+				{"doctype":"Print Format", "filters": [["module", "=", "Einvoice"]]},
+				{"doctype":"Custom Field", "filters": [["dt", "=", "Company"]]}
+			]
 
 

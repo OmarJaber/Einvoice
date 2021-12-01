@@ -18,12 +18,10 @@ from frappeclient import FrappeClient
 
 @frappe.whitelist(allow_guest=True)
 def get_invoice_details(invoice):
-	# conn = FrappeClient("https://demo.pas.sa")
-	# conn.login("administrator", "LkOqnVQapzRZWMd")
 
-	# doc = conn.get_doc('Sales Invoice', invoice)
-
+	company_info = frappe.get_doc('Company Info')
+	
 	doc = frappe.get_doc('Sales Invoice', invoice)
 
-	return doc.return_against, doc.posting_date, ':'.join(str(doc.posting_time).split(':')[:2])
+	return company_info.company_name, company_info.tax_id, doc.posting_date, ':'.join(str(doc.posting_time).split(':')[:2])
 

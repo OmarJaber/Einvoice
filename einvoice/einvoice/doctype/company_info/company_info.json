@@ -5,6 +5,8 @@
  "engine": "InnoDB",
  "field_order": [
   "company_name",
+  "address",
+  "mobile",
   "tax_id"
  ],
  "fields": [
@@ -21,10 +23,22 @@
    "in_list_view": 1,
    "label": "Tax ID",
    "reqd": 1
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mobile",
+   "fieldtype": "Data",
+   "label": "Mobile",
+   "reqd": 1
   }
  ],
  "issingle": 1,
- "modified": "2021-08-26 10:15:44.859410",
+ "modified": "2021-12-01 13:54:22.613752",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Company Info",

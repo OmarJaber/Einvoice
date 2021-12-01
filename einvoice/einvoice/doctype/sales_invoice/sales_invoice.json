@@ -11,8 +11,11 @@
   "address",
   "column_break_2",
   "company_name",
+  "company_address",
+  "company_mobile",
   "tax_id",
   "posting_date",
+  "posting_time",
   "items_details_section",
   "items",
   "total",
@@ -134,9 +137,28 @@
    "fieldtype": "Currency",
    "label": "Total Tax",
    "read_only": 1
+  },
+  {
+   "fieldname": "company_address",
+   "fieldtype": "Data",
+   "label": "Company Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company_mobile",
+   "fieldtype": "Data",
+   "label": "Company Mobile",
+   "read_only": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time",
+   "reqd": 1
   }
  ],
- "modified": "2021-09-12 14:06:44.244320",
+ "modified": "2021-12-01 14:11:17.578003",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Sales Invoice",

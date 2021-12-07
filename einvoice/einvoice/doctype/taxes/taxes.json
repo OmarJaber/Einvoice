@@ -25,7 +25,7 @@
    "reqd": 1
   }
  ],
- "modified": "2021-08-19 16:00:18.055980",
+ "modified": "2021-12-07 10:45:32.473185",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Taxes",
@@ -42,6 +42,15 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Guest",
+   "share": 1
   }
  ],
  "quick_entry": 1,

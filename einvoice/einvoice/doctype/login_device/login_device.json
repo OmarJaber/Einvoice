@@ -1,0 +1,72 @@
+{
+ "creation": "2021-12-07 13:36:11.238486",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "device_name",
+  "device_os",
+  "device_model",
+  "device_id",
+  "isphysicaldevice"
+ ],
+ "fields": [
+  {
+   "fieldname": "device_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Device Name"
+  },
+  {
+   "fieldname": "device_os",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Device OS"
+  },
+  {
+   "fieldname": "device_model",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Device Model"
+  },
+  {
+   "fieldname": "device_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Device ID"
+  },
+  {
+   "default": "0",
+   "fieldname": "isphysicaldevice",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "IsPhysicalDevice"
+  }
+ ],
+ "modified": "2021-12-07 14:30:58.808830",
+ "modified_by": "admin@omarm.erptag.com",
+ "module": "Einvoice",
+ "name": "Login Device",
+ "owner": "admin@omarm.erptag.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "device_name",
+ "track_changes": 1
+}

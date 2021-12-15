@@ -109,7 +109,7 @@ def download_all_filtered_sales_invoice(from_date, to_date):
 
     doc.save(ignore_permissions=True)
 
-    result = download_pdf(doc.doctype, doc.name, format='New Standard', doc=doc)
+    result = download_pdf(doc.doctype, doc.name, format='POS Invoice Arabic', doc=doc)
 
     doc.delete()
     
@@ -229,7 +229,7 @@ def download_sales_invoice(sales_invoice):
     else:
         doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
 
-        return download_pdf(doc.doctype, doc.name, format='Standard', doc=doc)
+        return download_pdf(doc.doctype, doc.name, format='POS Invoice Arabic', doc=doc)
          
 
 
@@ -246,7 +246,7 @@ def send_sales_invoice_via_email(sales_invoice):
         sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
         recipient = doc.email
 
-        attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='New Standard SI AR')]
+        attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice Arabic')]
 
         frappe.sendmail(
             sender=sender,

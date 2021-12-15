@@ -9,12 +9,14 @@ def get_data():
 			"items": [
 				{
 					"type": "doctype",
-					"name": "Item",
+					"label": "Item",
+					"name": "EInvoice Item",
 					"onboard": 1
 				},
 				{
 					"type": "doctype",
-					"name": "Item Group",
+					"label": "Item Group",
+					"name": "EInvoice Item Group",
 					"onboard": 1
 				},
 				{
@@ -24,7 +26,8 @@ def get_data():
 				},
 				{
 					"type": "doctype",
-					"name": "Sales Invoice",
+					"label": "Sales Invoice",
+					"name": "EInvoice Sales Invoice",
 					"onboard": 1
 				}
 			]

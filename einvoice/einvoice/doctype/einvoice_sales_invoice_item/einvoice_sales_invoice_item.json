@@ -25,7 +25,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item",
-   "options": "Item",
+   "options": "EInvoice Item",
    "reqd": 1
   },
   {
@@ -112,10 +112,10 @@
   }
  ],
  "istable": 1,
- "modified": "2021-12-07 10:45:14.324645",
+ "modified": "2021-12-15 14:54:36.082614",
  "modified_by": "Administrator",
  "module": "Einvoice",
- "name": "Sales Invoice Item",
+ "name": "EInvoice Sales Invoice Item",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,

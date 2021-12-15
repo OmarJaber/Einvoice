@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 
-frappe.ui.form.on('Sales Invoice', {
+frappe.ui.form.on('EInvoice Sales Invoice', {
 	onload: function(frm) {
 
 		frappe.call({
@@ -22,7 +22,7 @@ frappe.ui.form.on('Sales Invoice', {
 });
 
 
-frappe.ui.form.on('Sales Invoice Item', {
+frappe.ui.form.on('EInvoice Sales Invoice Item', {
 	item: function(frm, cdt, cdn){
 		var d = locals[cdt][cdn];
 		frappe.model.set_value(cdt, cdn, "qty", );

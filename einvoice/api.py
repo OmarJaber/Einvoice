@@ -55,7 +55,7 @@ def item_search(search_key):
         "data": []
     }
 
-    items = frappe.db.sql("select item_name, item_group, price, warehouse_quantity, tax, rate, img, description from `tabItem` where warehouse_quantity!=0 and name like '%{0}%'or description like '%{0}%'".format(search_key))
+    items = frappe.db.sql("select item_name, item_group, price, warehouse_quantity, tax, rate, img, description from `tabEInvoice Item` where warehouse_quantity!=0 and name like '%{0}%'or description like '%{0}%'".format(search_key))
 
     if len(items)==0:
         return "There are no product matches with the search key {0}".format(search_key)
@@ -88,9 +88,9 @@ def download_all_filtered_sales_invoice(from_date, to_date):
 
     doc = frappe.new_doc("Download Sales Invoice")
     
-    invoices = frappe.db.sql_list("select name from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    invoices = frappe.db.sql_list("select name from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
     for invoice in invoices:
-        sales_invoice_doc=frappe.get_doc("Sales Invoice", invoice)
+        sales_invoice_doc=frappe.get_doc("EInvoice Sales Invoice", invoice)
         invoices_sql.append(invoice)
         doc.append('invoices',{
             "sales_invoice": invoice,
@@ -101,7 +101,7 @@ def download_all_filtered_sales_invoice(from_date, to_date):
     invoices_sql = tuple(invoices_sql)
 
         
-    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
 
     doc.total_without_tax = total[0][0]
     doc.total_tax_amount = total[0][1]
@@ -135,9 +135,9 @@ def get_specific_filtered_sales_invoice(from_date, to_date, current_page_number,
       "grand_total": 0
     }
 
-    invoices = frappe.db.sql_list("select name from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    invoices = frappe.db.sql_list("select name from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
     for invoice in invoices:
-        doc=frappe.get_doc("Sales Invoice", invoice)
+        doc=frappe.get_doc("EInvoice Sales Invoice", invoice)
         data["invoices"].append({'name': invoice, 'posting_date': doc.posting_date, 'grand_total': doc.grand_total})
         invoices_sql.append(invoice)
 
@@ -154,7 +154,7 @@ def get_specific_filtered_sales_invoice(from_date, to_date, current_page_number,
     data.update({"page_entries": page_entries})
 
 
-    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
 
     data.update({"total_without_tax": total[0][0]})
     data.update({"total_tax_amount": total[0][1]})
@@ -201,16 +201,16 @@ def get_all_filtered_sales_invoice(from_date, to_date):
       "grand_total": 0
     }
 
-    invoices = frappe.db.sql_list("select name from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    invoices = frappe.db.sql_list("select name from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
     for invoice in invoices:
-        doc=frappe.get_doc("Sales Invoice", invoice)
+        doc=frappe.get_doc("EInvoice Sales Invoice", invoice)
         data["invoices"].append({'name': invoice, 'posting_date': doc.posting_date, 'grand_total': doc.grand_total})
         invoices_sql.append(invoice)
 
     invoices_sql = tuple(invoices_sql)
 
         
-    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabSales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
 
     data.update({"total_without_tax": total[0][0]})
     data.update({"total_tax_amount": total[0][1]})
@@ -224,10 +224,10 @@ def get_all_filtered_sales_invoice(from_date, to_date):
 
 @frappe.whitelist()
 def download_sales_invoice(sales_invoice):
-    if not frappe.db.exists("Sales Invoice", {"name": sales_invoice}):
+    if not frappe.db.exists("EInvoice Sales Invoice", {"name": sales_invoice}):
         return "Selected Sales Invoice is not exists"
     else:
-        doc = frappe.get_doc("Sales Invoice", sales_invoice)
+        doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
 
         return download_pdf(doc.doctype, doc.name, format='Standard', doc=doc)
          
@@ -236,17 +236,17 @@ def download_sales_invoice(sales_invoice):
 
 @frappe.whitelist()
 def send_sales_invoice_via_email(sales_invoice):
-    if not frappe.db.exists("Sales Invoice", {"name": sales_invoice}):
+    if not frappe.db.exists("EInvoice Sales Invoice", {"name": sales_invoice}):
         return "Selected Sales Invoice is not exists"
     else:
-        doc = frappe.get_doc("Sales Invoice", sales_invoice)
+        doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
 
         msg = frappe.render_template('einvoice/templates/emails/invoice_ar.html', context={"sales_invoice": doc})
 
         sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
         recipient = doc.email
 
-        attachments = [frappe.attach_print("Sales Invoice", doc.name, print_format='New Standard SI AR')]
+        attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='New Standard SI AR')]
 
         frappe.sendmail(
             sender=sender,

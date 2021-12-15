@@ -30,7 +30,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item Group",
-   "options": "Item Group",
+   "options": "EInvoice Item Group",
    "reqd": 1
   },
   {
@@ -83,10 +83,10 @@
   }
  ],
  "image_field": "img",
- "modified": "2021-12-07 10:45:06.573444",
+ "modified": "2021-12-15 13:49:04.048629",
  "modified_by": "Administrator",
  "module": "Einvoice",
- "name": "Item",
+ "name": "EInvoice Item",
  "owner": "Administrator",
  "permissions": [
   {

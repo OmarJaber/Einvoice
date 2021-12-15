@@ -21,7 +21,7 @@ def get_invoice_details(invoice):
 
 	company_info = frappe.get_doc('Company Info')
 	
-	doc = frappe.get_doc('Sales Invoice', invoice)
+	doc = frappe.get_doc('EInvoice Sales Invoice', invoice)
 
 	return company_info.company_name, company_info.tax_id, doc.posting_date, ':'.join(str(doc.posting_time).split(':')[:2])
 

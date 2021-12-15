@@ -7,17 +7,17 @@ import frappe
 from frappe.model.document import Document
 from frappe.utils import cint, cstr, flt, nowdate, comma_and, date_diff, getdate
 
-class SalesInvoice(Document):
+class EInvoiceSalesInvoice(Document):
     def after_insert(self):
         for item_child in self.items:
-            doc = frappe.get_doc("Item", item_child.item)
+            doc = frappe.get_doc("EInvoice Item", item_child.item)
             doc.warehouse_quantity=int(doc.warehouse_quantity)-int(item_child.qty)
             doc.save(ignore_permissions=True)
 
 
     def before_insert(self):
         for item_child in self.items:
-            doc = frappe.get_doc("Item", item_child.item)
+            doc = frappe.get_doc("EInvoice Item", item_child.item)
             if int(item_child.qty)>int(doc.warehouse_quantity):
                 frappe.throw("The requested quantity of item {0} is more than stock availability".format(item_child.item))
             elif int(doc.warehouse_quantity)==0:

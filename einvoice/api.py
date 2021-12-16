@@ -109,7 +109,7 @@ def download_all_filtered_sales_invoice(from_date, to_date):
 
     doc.save(ignore_permissions=True)
 
-    result = download_pdf(doc.doctype, doc.name, format='POS Invoice Arabic', doc=doc)
+    result = download_pdf(doc.doctype, doc.name, format='New Standard', doc=doc)
 
     doc.delete()
     
@@ -267,7 +267,7 @@ def send_sales_invoice_via_email(sales_invoice):
 @frappe.whitelist()
 def send_sales_invoice_via_email_client(sales_invoice):
     company_info = frappe.get_doc("Company Info")
-    if company_info.email_address and not company_info.stop_receiving_emails
+    if company_info.email_address and not company_info.stop_receiving_emails:
         if not frappe.db.exists("EInvoice Sales Invoice", {"name": sales_invoice}):
             return "Selected Sales Invoice is not exists"
         else:

@@ -7,7 +7,10 @@
   "company_name",
   "address",
   "mobile",
-  "tax_id"
+  "tax_id",
+  "email_settings_section",
+  "email_address",
+  "stop_receiving_emails"
  ],
  "fields": [
   {
@@ -35,10 +38,26 @@
    "fieldtype": "Data",
    "label": "Mobile",
    "reqd": 1
+  },
+  {
+   "fieldname": "email_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Email Settings"
+  },
+  {
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "label": "Email Address"
+  },
+  {
+   "default": "0",
+   "fieldname": "stop_receiving_emails",
+   "fieldtype": "Check",
+   "label": "Stop Receiving Emails"
   }
  ],
  "issingle": 1,
- "modified": "2021-12-15 13:44:29.715924",
+ "modified": "2021-12-16 13:56:57.645169",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Company Info",

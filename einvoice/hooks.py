@@ -20,7 +20,7 @@ app_license = "MIT"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/einvoice/css/einvoice.css"
-# web_include_js = "/assets/einvoice/js/einvoice.js"
+web_include_js = "/assets/einvoice/js/qrcode.min.js"
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}

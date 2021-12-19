@@ -33,6 +33,22 @@ import requests
 
 
 @frappe.whitelist()
+def print_test():
+    # print_html = frappe.get_print("EInvoice Sales Invoice", "SINV-2021-00164", style="POS Invoice Arabic", as_pdf=True)
+
+    from frappe.utils.print_format import print_by_server
+
+    print_by_server("EInvoice Sales Invoice", "SINV-2021-00164", print_format="POS Invoice Arabic")
+
+    # doctype, name, printer_setting, print_format=None, doc=None, no_letterhead=0, file_path=None
+
+    # return print_html
+
+
+
+
+
+@frappe.whitelist()
 def get_taxes():
 
     data = {

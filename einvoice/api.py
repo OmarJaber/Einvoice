@@ -30,24 +30,6 @@ import requests
 
 
 
-
-
-@frappe.whitelist()
-def print_test():
-    # print_html = frappe.get_print("EInvoice Sales Invoice", "SINV-2021-00164", style="POS Invoice Arabic", as_pdf=True)
-
-    from frappe.utils.print_format import print_by_server
-
-    print_by_server("EInvoice Sales Invoice", "SINV-2021-00164", print_format="POS Invoice Arabic")
-
-    # doctype, name, printer_setting, print_format=None, doc=None, no_letterhead=0, file_path=None
-
-    # return print_html
-
-
-
-
-
 @frappe.whitelist()
 def get_taxes():
 
@@ -96,9 +78,8 @@ def check_existing(doctype, docname):
 
 
 
-
 @frappe.whitelist()
-def download_all_filtered_sales_invoice(from_date, to_date):
+def download_and_email_all_filtered_sales_invoice(from_date, to_date):
 
     invoices_sql = []
 
@@ -111,7 +92,9 @@ def download_all_filtered_sales_invoice(from_date, to_date):
         doc.append('invoices',{
             "sales_invoice": invoice,
             "posting_date": sales_invoice_doc.posting_date,
-            "total_amount": sales_invoice_doc.grand_total
+            "total_without_tax": sales_invoice_doc.total_without_tax,
+            "total_tax_amount": sales_invoice_doc.total_tax_amount,
+            "grand_total": sales_invoice_doc.grand_total
         })
     
     invoices_sql = tuple(invoices_sql)
@@ -127,9 +110,99 @@ def download_all_filtered_sales_invoice(from_date, to_date):
 
     result = download_pdf(doc.doctype, doc.name, format='New Standard', doc=doc)
 
-    doc.delete()
+    # doc.delete()
     
+
+    company_info = frappe.get_doc("Company Info")
+    if company_info.email_address and not company_info.stop_receiving_emails:
+        msg = "<h3><b>In the attachment file, you will find all invoices between {0} and {1} period!</b></h3>".format(from_date, to_date)
+
+        sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
+        recipient = company_info.email_address
+
+        attachments = [frappe.attach_print("Download Sales Invoice", doc.name, print_format='New Standard')]
+
+        frappe.sendmail(
+            sender=sender,
+            recipients= recipient,
+            content=msg,
+            subject="Filtered Invoices {0}".format(doc.name),
+            delayed=False,
+            reference_doctype=doc.doctype,
+            reference_name=doc.name,
+            attachments=attachments
+        )
+
+
     return result
+
+
+
+
+
+
+
+
+
+@frappe.whitelist()
+def send_email_all_filtered_sales_invoice(from_date, to_date):
+
+    invoices_sql = []
+
+    doc = frappe.new_doc("Download Sales Invoice")
+    
+    invoices = frappe.db.sql_list("select name from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    for invoice in invoices:
+        sales_invoice_doc=frappe.get_doc("EInvoice Sales Invoice", invoice)
+        invoices_sql.append(invoice)
+        doc.append('invoices',{
+            "sales_invoice": invoice,
+            "posting_date": sales_invoice_doc.posting_date,
+            "total_without_tax": sales_invoice_doc.total_without_tax,
+            "total_tax_amount": sales_invoice_doc.total_tax_amount,
+            "grand_total": sales_invoice_doc.grand_total
+        })
+    
+    invoices_sql = tuple(invoices_sql)
+
+        
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+
+    doc.total_without_tax = total[0][0]
+    doc.total_tax_amount = total[0][1]
+    doc.grand_total = total[0][2]
+
+    doc.save(ignore_permissions=True)
+
+    # result = download_pdf(doc.doctype, doc.name, format='New Standard', doc=doc)
+
+    # doc.delete()
+    
+
+    company_info = frappe.get_doc("Company Info")
+    if company_info.email_address and not company_info.stop_receiving_emails:
+        msg = "<h3><b>In the attachment file, you will find all invoices between {0} and {1} period!</b></h3>".format(from_date, to_date)
+
+        sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
+        recipient = company_info.email_address
+
+        attachments = [frappe.attach_print("Download Sales Invoice", doc.name, print_format='New Standard')]
+
+        frappe.sendmail(
+            sender=sender,
+            recipients= recipient,
+            content=msg,
+            subject="Filtered Invoices {0}".format(doc.name),
+            delayed=False,
+            reference_doctype=doc.doctype,
+            reference_name=doc.name,
+            attachments=attachments
+        )
+
+
+        return "Email Sent Successfully!"
+    else:
+        return "Please add your email to the company info page and enable receiving emails option!"
 
 
 
@@ -246,7 +319,10 @@ def download_sales_invoice(sales_invoice):
         doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
 
         return download_pdf(doc.doctype, doc.name, format='POS Invoice Arabic', doc=doc)
-         
+
+
+
+
 
 
 

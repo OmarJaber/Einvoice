@@ -216,9 +216,9 @@ body{
                                                                     <tr>
                                                                         <td align="center" valign="top" style="font-size:15px;color: #fff;">
 
-                                                                            <b>اسم الشركة</b>: {{ sales_invoice.company_name }}
+                                                                            <b>اسم الشركة</b>: {{ company_info.company_name }}
                                                                             <br>
-                                                                            <b>الرقم الضريبي</b>: {{ sales_invoice.tax_id }}
+                                                                            <b>الرقم الضريبي</b>: {{ company_info.tax_id }}
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -544,7 +544,7 @@ body{
                                             </tr>
                                             <tr>
                                             <td align="center" valign="top" style="font-family:'Open Sans', sans-serif, Verdana; font-size:12px; color:#4b4b4c; line-height:30px; font-weight:normal; direction: rtl!important;" mc:edit="tm-11">
-                                                    <multiline >شكراً لشرائك من {{ sales_invoice.company_name }}.<br>نتمنى أنها كانت رحلة تسوق سعيدة.</multiline>
+                                                    <multiline >شكراً لشرائك من {{ company_info.company_name }}.<br>نتمنى أنها كانت رحلة تسوق سعيدة.</multiline>
                                                 </td>
                                             </tr>
                                         </table>

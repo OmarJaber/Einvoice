@@ -328,36 +328,6 @@ def download_sales_invoice(sales_invoice):
 
 @frappe.whitelist()
 def send_sales_invoice_via_email(sales_invoice):
-    if not frappe.db.exists("EInvoice Sales Invoice", {"name": sales_invoice}):
-        return "Selected Sales Invoice is not exists"
-    else:
-        doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
-
-        msg = frappe.render_template('einvoice/templates/emails/invoice_ar.html', context={"sales_invoice": doc})
-
-        sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
-        recipient = doc.email
-
-        attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice Arabic')]
-
-        frappe.sendmail(
-            sender=sender,
-            recipients= recipient,
-            content=msg,
-            subject="Invoice {0}".format(doc.name),
-            delayed=False,
-            reference_doctype=doc.doctype,
-            reference_name=doc.name,
-            attachments=attachments
-        )
-
-        return "Email Sent Successfully"
-
-
-
-
-@frappe.whitelist()
-def send_sales_invoice_via_email_client(sales_invoice):
     company_info = frappe.get_doc("Company Info")
     if company_info.email_address and not company_info.stop_receiving_emails:
         if not frappe.db.exists("EInvoice Sales Invoice", {"name": sales_invoice}):
@@ -365,7 +335,7 @@ def send_sales_invoice_via_email_client(sales_invoice):
         else:
             doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
 
-            msg = frappe.render_template('einvoice/templates/emails/invoice_ar.html', context={"sales_invoice": doc})
+            msg = frappe.render_template('einvoice/templates/emails/invoice_ar.html', context={"sales_invoice": doc, "company_info": company_info})
 
             sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
             recipient = company_info.email_address
@@ -383,7 +353,30 @@ def send_sales_invoice_via_email_client(sales_invoice):
                 attachments=attachments
             )
 
-            return "Email Sent Successfully"
+
+    
+    doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
+    
+    msg = frappe.render_template('einvoice/templates/emails/invoice_ar.html', context={"sales_invoice": doc, "company_info": company_info})
+
+    sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
+    recipient = doc.email
+
+    attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice Arabic')]
+
+    frappe.sendmail(
+        sender=sender,
+        recipients= recipient,
+        content=msg,
+        subject="Invoice {0}".format(doc.name),
+        delayed=False,
+        reference_doctype=doc.doctype,
+        reference_name=doc.name,
+        attachments=attachments
+    )
+
+    return "Email Sent Successfully"
+
 
 
 

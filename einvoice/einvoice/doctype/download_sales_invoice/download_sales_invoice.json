@@ -78,7 +78,7 @@
   }
  ],
  "in_create": 1,
- "modified": "2021-12-22 13:44:05.594134",
+ "modified": "2021-12-23 10:27:23.861041",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "Download Sales Invoice",
@@ -97,13 +97,15 @@
    "write": 1
   },
   {
+   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "Guest",
-   "share": 1
+   "share": 1,
+   "write": 1
   }
  ],
  "read_only": 1,

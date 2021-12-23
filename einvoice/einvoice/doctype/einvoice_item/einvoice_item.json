@@ -83,7 +83,7 @@
   }
  ],
  "image_field": "img",
- "modified": "2021-12-15 13:49:04.048629",
+ "modified": "2021-12-23 10:28:02.978348",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "EInvoice Item",
@@ -102,13 +102,15 @@
    "write": 1
   },
   {
+   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "Guest",
-   "share": 1
+   "share": 1,
+   "write": 1
   }
  ],
  "sort_field": "modified",

@@ -224,7 +224,7 @@ def get_specific_filtered_sales_invoice(from_date, to_date, current_page_number,
       "grand_total": 0
     }
 
-    invoices = frappe.db.sql_list("select name from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    invoices = frappe.db.sql_list("select name from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date desc".format(from_date, to_date))
     for invoice in invoices:
         doc=frappe.get_doc("EInvoice Sales Invoice", invoice)
         data["invoices"].append({'name': invoice, 'posting_date': doc.posting_date, 'grand_total': doc.grand_total})
@@ -243,7 +243,7 @@ def get_specific_filtered_sales_invoice(from_date, to_date, current_page_number,
     data.update({"page_entries": page_entries})
 
 
-    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date".format(from_date, to_date))
+    total = frappe.db.sql("select sum(total_without_tax), sum(total_tax_amount), sum(grand_total) from `tabEInvoice Sales Invoice` where posting_date between '{0}' and '{1}' order by posting_date desc".format(from_date, to_date))
 
     data.update({"total_without_tax": total[0][0]})
     data.update({"total_tax_amount": total[0][1]})

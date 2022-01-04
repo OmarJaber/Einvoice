@@ -26,8 +26,48 @@ from frappe.utils.file_manager import upload
 from frappeclient import FrappeClient
 from frappe.utils.print_format import download_pdf
 import requests
+from frappe.sessions import Session, clear_sessions, delete_session, get_sessions_to_clear
 
 
+
+@frappe.whitelist(allow_guest=True)
+def edit_item(**kwargs):
+    kwargs=frappe._dict(kwargs)
+
+    item_doc = frappe.get_doc("EInvoice Item", kwargs.item_name)
+    item_doc.item_name = kwargs.item_new_name
+    item_doc.item_group = kwargs.item_group
+    item_doc.price = kwargs.price
+    item_doc.warehouse_quantity = kwargs.warehouse_quantity
+    item_doc.tax = kwargs.tax
+    item_doc.img = kwargs.img
+    item_doc.description = kwargs.description
+    item_doc.save(ignore_permissions=True)
+
+    import frappe.model.rename_doc as rd
+    rd.rename_doc("EInvoice Item", kwargs.item_name, kwargs.item_new_name, force=True)
+
+    return 'Done'
+
+
+
+@frappe.whitelist(allow_guest=True)
+def delete_item(item_name):
+    if frappe.db.exists("EInvoice Item", {"name": item_name}):
+        doc = frappe.get_doc("EInvoice Item", item_name)
+        doc.disabled=1
+        doc.save(ignore_permissions=True)
+
+    return 'Done'
+
+    
+
+@frappe.whitelist(allow_guest=True)
+def logging_out_user():
+    for sid in frappe.db.sql_list("select sid from `tabSessions`"):
+        delete_session(sid)
+    return 'Done'
+    
 
 
 @frappe.whitelist()
@@ -53,7 +93,7 @@ def item_search(search_key):
         "data": []
     }
 
-    items = frappe.db.sql("select item_name, item_group, price, warehouse_quantity, tax, rate, img, description from `tabEInvoice Item` where warehouse_quantity!=0 and name like '%{0}%'or description like '%{0}%'".format(search_key))
+    items = frappe.db.sql("select item_name, item_group, price, warehouse_quantity, tax, rate, img, description from `tabEInvoice Item` where warehouse_quantity!=0 and disabled=0 and name like '%{0}%'or description like '%{0}%'".format(search_key))
 
     if len(items)==0:
         return "There are no product matches with the search key {0}".format(search_key)
@@ -122,16 +162,19 @@ def download_and_email_all_filtered_sales_invoice(from_date, to_date):
 
         attachments = [frappe.attach_print("Download Sales Invoice", doc.name, print_format='New Standard')]
 
-        frappe.sendmail(
-            sender=sender,
-            recipients= recipient,
-            content=msg,
-            subject="Filtered Invoices {0}".format(doc.name),
-            delayed=False,
-            reference_doctype=doc.doctype,
-            reference_name=doc.name,
-            attachments=attachments
-        )
+        try:
+            frappe.sendmail(
+                sender=sender,
+                recipients= recipient,
+                content=msg,
+                subject="Filtered Invoices {0}".format(doc.name),
+                delayed=False,
+                reference_doctype=doc.doctype,
+                reference_name=doc.name,
+                attachments=attachments
+            )
+        except Exception as e:
+            return "يرجى إعداد حساب البريد إلكتروني أولا"
 
 
     return result
@@ -188,19 +231,22 @@ def send_email_all_filtered_sales_invoice(from_date, to_date):
 
         attachments = [frappe.attach_print("Download Sales Invoice", doc.name, print_format='New Standard')]
 
-        frappe.sendmail(
-            sender=sender,
-            recipients= recipient,
-            content=msg,
-            subject="Filtered Invoices {0}".format(doc.name),
-            delayed=False,
-            reference_doctype=doc.doctype,
-            reference_name=doc.name,
-            attachments=attachments
-        )
+        try:
+            frappe.sendmail(
+                sender=sender,
+                recipients= recipient,
+                content=msg,
+                subject="Filtered Invoices {0}".format(doc.name),
+                delayed=False,
+                reference_doctype=doc.doctype,
+                reference_name=doc.name,
+                attachments=attachments
+            )
+        except Exception as e:
+            return "يرجى إعداد حساب البريد إلكتروني أولا"
 
 
-        return "Email Sent Successfully!"
+        return "تم الارسال الى البريد الالكتروني"
     else:
         return "Please add your email to the company info page and enable receiving emails option!"
 
@@ -342,17 +388,20 @@ def send_sales_invoice_via_email(sales_invoice):
 
             attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice Arabic')]
 
-            frappe.sendmail(
-                sender=sender,
-                recipients= recipient,
-                content=msg,
-                subject="Invoice {0}".format(doc.name),
-                delayed=False,
-                reference_doctype=doc.doctype,
-                reference_name=doc.name,
-                attachments=attachments
-            )
-
+            try:
+                frappe.sendmail(
+                    sender=sender,
+                    recipients= recipient,
+                    content=msg,
+                    subject="Invoice {0}".format(doc.name),
+                    delayed=False,
+                    reference_doctype=doc.doctype,
+                    reference_name=doc.name,
+                    attachments=attachments
+                )
+            except Exception as e:
+                return "يرجى إعداد حساب البريد إلكتروني أولا"
+            
 
     
     doc = frappe.get_doc("EInvoice Sales Invoice", sales_invoice)
@@ -364,18 +413,21 @@ def send_sales_invoice_via_email(sales_invoice):
 
     attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice Arabic')]
 
-    frappe.sendmail(
-        sender=sender,
-        recipients= recipient,
-        content=msg,
-        subject="Invoice {0}".format(doc.name),
-        delayed=False,
-        reference_doctype=doc.doctype,
-        reference_name=doc.name,
-        attachments=attachments
-    )
-
-    return "Email Sent Successfully"
+    try:
+        frappe.sendmail(
+            sender=sender,
+            recipients= recipient,
+            content=msg,
+            subject="Invoice {0}".format(doc.name),
+            delayed=False,
+            reference_doctype=doc.doctype,
+            reference_name=doc.name,
+            attachments=attachments
+        )
+    except Exception as e:
+        return "يرجى إعداد حساب البريد إلكتروني أولا"
+    
+    return "تم الارسال الى البريد الالكتروني"
 
 
 

@@ -53,11 +53,13 @@ def edit_item(**kwargs):
 
 @frappe.whitelist(allow_guest=True)
 def delete_item(item_name):
-    if frappe.db.exists("EInvoice Item", {"name": item_name}):
-        doc = frappe.get_doc("EInvoice Item", item_name)
-        doc.disabled=1
-        doc.save(ignore_permissions=True)
+    doc = frappe.get_doc("EInvoice Item", item_name)
+    doc.disabled=1
+    doc.save(ignore_permissions=True)
 
+    frappe.db.sql("update `tabEInvoice Item` set disabled=1 where item_name='{0}'".format(item_name))
+    frappe.db.commit()
+    
     return 'Done'
 
     

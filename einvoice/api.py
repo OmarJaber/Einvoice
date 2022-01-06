@@ -35,7 +35,8 @@ def edit_item(**kwargs):
     kwargs=frappe._dict(kwargs)
 
     item_doc = frappe.get_doc("EInvoice Item", kwargs.item_name)
-    item_doc.item_name = kwargs.item_new_name
+    if kwargs.item_name!=kwargs.item_new_name:
+        item_doc.item_name = kwargs.item_new_name
     item_doc.item_group = kwargs.item_group
     item_doc.price = kwargs.price
     item_doc.warehouse_quantity = kwargs.warehouse_quantity

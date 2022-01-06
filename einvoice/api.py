@@ -44,8 +44,9 @@ def edit_item(**kwargs):
     item_doc.description = kwargs.description
     item_doc.save(ignore_permissions=True)
 
-    import frappe.model.rename_doc as rd
-    rd.rename_doc("EInvoice Item", kwargs.item_name, kwargs.item_new_name, force=True)
+    if kwargs.item_name!=kwargs.item_new_name:
+        import frappe.model.rename_doc as rd
+        rd.rename_doc("EInvoice Item", kwargs.item_name, kwargs.item_new_name, force=True)
 
     return 'Done'
 

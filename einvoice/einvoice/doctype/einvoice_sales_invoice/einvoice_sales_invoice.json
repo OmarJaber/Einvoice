@@ -16,6 +16,7 @@
   "tax_id",
   "posting_date",
   "posting_time",
+  "ksa_einv_qr",
   "items_details_section",
   "items",
   "total",
@@ -157,9 +158,17 @@
    "fieldtype": "Time",
    "label": "Posting Time",
    "reqd": 1
+  },
+  {
+   "fieldname": "ksa_einv_qr",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "KSA E-Invoicing QR",
+   "no_copy": 1,
+   "read_only": 1
   }
  ],
- "modified": "2021-12-30 10:31:26.908115",
+ "modified": "2022-01-19 13:29:25.353217",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "EInvoice Sales Invoice",

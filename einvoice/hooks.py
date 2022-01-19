@@ -79,13 +79,11 @@ web_include_js = "/assets/einvoice/js/qrcode.min.js"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"EInvoice Sales Invoice": {
+		"validate": "einvoice.api.create_qr_code"
+	}
+}
 
 # Scheduled Tasks
 # ---------------

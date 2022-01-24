@@ -516,7 +516,7 @@ def send_sales_invoice_via_email(sales_invoice):
             sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
             recipient = company_info.email_address
 
-            attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice Arabic')]
+            attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice A4')]
 
             try:
                 frappe.sendmail(
@@ -541,7 +541,7 @@ def send_sales_invoice_via_email(sales_invoice):
     sender = frappe.get_value("Email Account", filters = {"default_outgoing": 1}, fieldname = "email_id") or None
     recipient = doc.email
 
-    attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice Arabic')]
+    attachments = [frappe.attach_print("EInvoice Sales Invoice", doc.name, print_format='POS Invoice A4')]
 
     try:
         frappe.sendmail(

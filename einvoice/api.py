@@ -151,7 +151,7 @@ def create_qr_code(doc, method=None):
 
 @frappe.whitelist(allow_guest=True)
 def print_invoice(sales_invoice):
-    url = "{0}/printview?doctype=EInvoice%20Sales%20Invoice&name={1}&format=POS%20Invoice%20Arabic&no_letterhead=0&_lang=en".format(frappe.utils.get_url(), sales_invoice)
+    url = "{0}/printview?doctype=EInvoice%20Sales%20Invoice&name={1}&trigger_print=1&format=POS%20Invoice%20Arabic&no_letterhead=0&_lang=en".format(frappe.utils.get_url(), sales_invoice)
     return url
 
 

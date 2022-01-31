@@ -14,6 +14,7 @@ frappe.ui.form.on('EInvoice Sales Invoice', {
 		            cur_frm.set_value("company_address", r.message[1]);
 		            cur_frm.set_value("company_mobile", r.message[2]);
 		            cur_frm.set_value("tax_id", r.message[3]);
+		            cur_frm.set_value("commercial_registration_no", r.message[4]);
 		        }
 		    }
 		});

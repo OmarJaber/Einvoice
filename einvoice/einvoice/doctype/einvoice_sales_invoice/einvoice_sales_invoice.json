@@ -8,6 +8,7 @@
   "customer",
   "mobile",
   "email",
+  "customer_tax_id",
   "address",
   "column_break_2",
   "company_name",
@@ -116,11 +117,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "address",
-   "fieldtype": "Data",
-   "label": "Address"
-  },
-  {
    "default": "0",
    "fieldname": "total",
    "fieldtype": "Currency",
@@ -173,9 +169,19 @@
    "fieldtype": "Data",
    "label": "Commercial Registration No",
    "read_only": 1
+  },
+  {
+   "fieldname": "customer_tax_id",
+   "fieldtype": "Data",
+   "label": "Customer Tax ID"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
   }
  ],
- "modified": "2022-01-31 11:22:04.122229",
+ "modified": "2022-02-13 12:00:26.338243",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "EInvoice Sales Invoice",

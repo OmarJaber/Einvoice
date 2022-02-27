@@ -6,6 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "item_name",
+  "item_name_arabic",
   "item_group",
   "price",
   "column_break_3",
@@ -87,11 +88,16 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "item_name_arabic",
+   "fieldtype": "Data",
+   "label": "Item Name Arabic"
   }
  ],
  "image_field": "img",
- "modified": "2022-01-03 14:21:26.719958",
- "modified_by": "admin@omarm.erptag.com",
+ "modified": "2022-02-27 14:41:16.653415",
+ "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "EInvoice Item",
  "owner": "Administrator",

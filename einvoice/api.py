@@ -163,6 +163,7 @@ def edit_item(**kwargs):
     item_doc = frappe.get_doc("EInvoice Item", kwargs.item_name)
     if kwargs.item_name!=kwargs.item_new_name:
         item_doc.item_name = kwargs.item_new_name
+    item_doc.item_name_arabic = kwargs.item_name_arabic
     item_doc.item_group = kwargs.item_group
     item_doc.price = kwargs.price
     item_doc.warehouse_quantity = kwargs.warehouse_quantity
@@ -223,7 +224,7 @@ def item_search(search_key):
         "data": []
     }
 
-    items = frappe.db.sql("select item_name, item_group, price, warehouse_quantity, tax, rate, img, description from `tabEInvoice Item` where warehouse_quantity!=0 and disabled=0 and name like '%{0}%'or description like '%{0}%'".format(search_key))
+    items = frappe.db.sql("select item_name, item_group, price, warehouse_quantity, tax, rate, img, description from `tabEInvoice Item` where warehouse_quantity!=0 and disabled=0 and name like '%{0}%' or item_name_arabic like '%{0}%' or description like '%{0}%'".format(search_key))
 
     if len(items)==0:
         return "There are no product matches with the search key {0}".format(search_key)

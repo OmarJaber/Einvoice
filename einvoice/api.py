@@ -29,6 +29,15 @@ import requests
 from frappe.sessions import Session, clear_sessions, delete_session, get_sessions_to_clear
 
 
+
+@frappe.whitelist(allow_guest=True)
+def check_session():
+    return frappe.session.user
+
+
+
+
+
 def create_qr_code(doc, method=None):
     import io
     import os

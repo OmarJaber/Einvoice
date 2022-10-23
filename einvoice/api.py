@@ -27,10 +27,59 @@ from frappeclient import FrappeClient
 from frappe.utils.print_format import download_pdf
 import requests
 from frappe.sessions import Session, clear_sessions, delete_session, get_sessions_to_clear
+from frappe import auth
 
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist( allow_guest=True )
+def login(usr, pwd):
+    try:
+        login_manager = frappe.auth.LoginManager()
+        login_manager.authenticate(user=usr, pwd=pwd)
+        login_manager.post_login()
+    except frappe.exceptions.AuthenticationError:
+        frappe.clear_messages()
+        frappe.local.response["message"] = {
+            "success_key":0,
+            "message":"Authentication Error!"
+        }
+
+        return
+
+    api_generate = generate_keys(frappe.session.user)
+    user = frappe.get_doc('User', frappe.session.user)
+
+    frappe.response["message"] = {
+        "success_key":1,
+        "message":"Authentication success",
+        "sid":frappe.session.sid,
+        "api_key":user.api_key,
+        "api_secret":api_generate,
+        "username":user.username,
+        "email":user.email
+    }
+
+
+
+def generate_keys(user):
+    user_details = frappe.get_doc('User', user)
+    api_secret = frappe.generate_hash(length=15)
+
+    if not user_details.api_key:
+        api_key = frappe.generate_hash(length=15)
+        user_details.api_key = api_key
+
+    user_details.api_secret = api_secret
+    user_details.save()
+
+    return api_secret
+
+
+    
+
+
+
+@frappe.whitelist()
 def check_session():
     return frappe.session.user
 
@@ -158,14 +207,14 @@ def create_qr_code(doc, method=None):
 
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def print_invoice(sales_invoice):
     url = "{0}/printview?doctype=EInvoice%20Sales%20Invoice&name={1}&trigger_print=1&format=POS%20Invoice%20Arabic&no_letterhead=0&_lang=en".format(frappe.utils.get_url(), sales_invoice)
     return url
 
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def edit_item(**kwargs):
     kwargs=frappe._dict(kwargs)
 
@@ -189,7 +238,7 @@ def edit_item(**kwargs):
 
 
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def delete_item(item_name):
     doc = frappe.get_doc("EInvoice Item", item_name)
     doc.disabled=1
@@ -202,7 +251,7 @@ def delete_item(item_name):
 
     
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist()
 def logging_out_user():
     for sid in frappe.db.sql_list("select sid from `tabSessions`"):
         delete_session(sid)
@@ -586,7 +635,10 @@ def import_profil_image(cmd, doctype, docname, filename, filedata, from_form):
         }
     headers = {"Content-type": "multipart/form-data"}
     res = requests.post(url,data = json.dumps(payload), headers=headers)
-    
+    doc = frappe.get_doc(doctype, docname)
+    doc.img = '/files/'+str(filename)
+    doc.save(ignore_permissions=True)
+
     return res.json()
 
 

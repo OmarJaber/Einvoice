@@ -25,8 +25,8 @@
    "reqd": 1
   }
  ],
- "modified": "2021-12-23 10:28:28.430264",
- "modified_by": "Administrator",
+ "modified": "2022-10-19 11:48:27.352350",
+ "modified_by": "admin@epasinvoice.pas.sa",
  "module": "Einvoice",
  "name": "Taxes",
  "owner": "Administrator",
@@ -40,17 +40,6 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Guest",
    "share": 1,
    "write": 1
   }

@@ -22,6 +22,7 @@
   "items_details_section",
   "items",
   "total",
+  "discount",
   "section_break_11",
   "total_without_tax",
   "total_tax_amount",
@@ -179,9 +180,15 @@
    "fieldname": "address",
    "fieldtype": "Data",
    "label": "Address"
+  },
+  {
+   "default": "0",
+   "fieldname": "discount",
+   "fieldtype": "Percent",
+   "label": "Discount"
   }
  ],
- "modified": "2022-02-13 12:00:26.338243",
+ "modified": "2022-10-23 16:26:43.002944",
  "modified_by": "Administrator",
  "module": "Einvoice",
  "name": "EInvoice Sales Invoice",
